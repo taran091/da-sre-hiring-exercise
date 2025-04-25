@@ -1,0 +1,1593 @@
+### GIT PATCH ###
+
+
+
+### K8S GET RESOURCES FOR MINIKUBE ###
+
+NAME                                                     READY   STATUS    RESTARTS   AGE
+pod/currency-conversion-68849877dc-7s8tq                 1/1     Running   0          57m
+pod/currency-conversion-68849877dc-zn9dp                 1/1     Running   0          57m
+pod/prometheus-alertmanager-0                            1/1     Running   0          29m
+pod/prometheus-kube-state-metrics-c7cbfcc5d-qbtg5        1/1     Running   0          29m
+pod/prometheus-prometheus-node-exporter-z94q4            1/1     Running   0          29m
+pod/prometheus-prometheus-pushgateway-79c99bd4b8-wzqn7   1/1     Running   0          29m
+pod/prometheus-server-564448f5dc-5tp9r                   2/2     Running   0          29m
+
+NAME                                          TYPE        CLUSTER-IP       EXTERNAL-IP   PORT(S)    AGE
+service/currency-conversion-service           ClusterIP   10.109.143.109   <none>        8000/TCP   57m
+service/prometheus-alertmanager               ClusterIP   10.106.21.58     <none>        9093/TCP   29m
+service/prometheus-alertmanager-headless      ClusterIP   None             <none>        9093/TCP   29m
+service/prometheus-kube-state-metrics         ClusterIP   10.111.90.19     <none>        8080/TCP   29m
+service/prometheus-prometheus-node-exporter   ClusterIP   10.108.250.48    <none>        9100/TCP   29m
+service/prometheus-prometheus-pushgateway     ClusterIP   10.110.203.173   <none>        9091/TCP   29m
+service/prometheus-server                     ClusterIP   10.107.156.74    <none>        80/TCP     29m
+
+NAME                                                READY   UP-TO-DATE   AVAILABLE   AGE
+deployment.apps/currency-conversion                 2/2     2            2           57m
+deployment.apps/prometheus-kube-state-metrics       1/1     1            1           29m
+deployment.apps/prometheus-prometheus-pushgateway   1/1     1            1           29m
+deployment.apps/prometheus-server                   1/1     1            1           29m
+
+NAME                                DATA   AGE
+configmap/kube-root-ca.crt          1      9h
+configmap/prometheus-alertmanager   1      29m
+configmap/prometheus-server         6      29m
+
+NAME                                               TYPE                 DATA   AGE
+secret/sh.helm.release.v1.currency-conversion.v1   helm.sh/release.v1   1      57m
+secret/sh.helm.release.v1.prometheus.v1            helm.sh/release.v1   1      29m
+
+NAME                                                        CAPACITY   ACCESS MODES   RECLAIM POLICY   STATUS   CLAIM                                                   STORAGECLASS   VOLUMEATTRIBUTESCLASS   REASON   AGE
+persistentvolume/pvc-905d1323-036b-4573-b4ef-04b54fc05f11   2Gi        RWO            Delete           Bound    currency-conversion/storage-prometheus-alertmanager-0   standard       <unset>                          5h42m
+persistentvolume/pvc-f6502b82-0b47-4311-83bf-988f1fd95068   8Gi        RWO            Delete           Bound    currency-conversion/prometheus-server                   standard       <unset>                          29m
+
+NAME                                                      STATUS   VOLUME                                     CAPACITY   ACCESS MODES   STORAGECLASS   VOLUMEATTRIBUTESCLASS   AGE
+persistentvolumeclaim/prometheus-server                   Bound    pvc-f6502b82-0b47-4311-83bf-988f1fd95068   8Gi        RWO            standard       <unset>                 29m
+persistentvolumeclaim/storage-prometheus-alertmanager-0   Bound    pvc-905d1323-036b-4573-b4ef-04b54fc05f11   2Gi        RWO            standard       <unset>                 5h42m
+
+NAME                                          CLASS   HOSTS       ADDRESS        PORTS   AGE
+ingress.networking.k8s.io/prometheus-server   nginx   localhost   192.168.49.2   80      29m
+
+
+### K8S DESCRIBE RESOURCES FOR MINIKUBE ###
+
+Name:             currency-conversion-68849877dc-7s8tq
+Namespace:        currency-conversion
+Priority:         0
+Service Account:  default
+Node:             minikube/192.168.49.2
+Start Time:       Fri, 25 Apr 2025 22:40:24 +0100
+Labels:           app=currency-conversion
+                  pod-template-hash=68849877dc
+Annotations:      <none>
+Status:           Running
+IP:               10.244.0.120
+IPs:
+  IP:           10.244.0.120
+Controlled By:  ReplicaSet/currency-conversion-68849877dc
+Containers:
+  currency-conversion:
+    Container ID:   docker://92fb45350fed027ef88d7134cf97127244122acea16abefa2ac1ec13bc9f1699
+    Image:          currency-conversion:1
+    Image ID:       docker://sha256:ab2917a01a2fcafef3ddf38ab9aeac1373565d172decfb00529cd8485f9478b4
+    Port:           8000/TCP
+    Host Port:      0/TCP
+    State:          Running
+      Started:      Fri, 25 Apr 2025 22:40:25 +0100
+    Ready:          True
+    Restart Count:  0
+    Limits:
+      cpu:     500m
+      memory:  512Mi
+    Requests:
+      cpu:        250m
+      memory:     256Mi
+    Environment:  <none>
+    Mounts:
+      /var/run/secrets/kubernetes.io/serviceaccount from kube-api-access-s5f2z (ro)
+Conditions:
+  Type                        Status
+  PodReadyToStartContainers   True 
+  Initialized                 True 
+  Ready                       True 
+  ContainersReady             True 
+  PodScheduled                True 
+Volumes:
+  kube-api-access-s5f2z:
+    Type:                    Projected (a volume that contains injected data from multiple sources)
+    TokenExpirationSeconds:  3607
+    ConfigMapName:           kube-root-ca.crt
+    ConfigMapOptional:       <nil>
+    DownwardAPI:             true
+QoS Class:                   Burstable
+Node-Selectors:              <none>
+Tolerations:                 node.kubernetes.io/not-ready:NoExecute op=Exists for 300s
+                             node.kubernetes.io/unreachable:NoExecute op=Exists for 300s
+Events:
+  Type    Reason     Age   From               Message
+  ----    ------     ----  ----               -------
+  Normal  Scheduled  57m   default-scheduler  Successfully assigned currency-conversion/currency-conversion-68849877dc-7s8tq to minikube
+  Normal  Pulled     57m   kubelet            Container image "currency-conversion:1" already present on machine
+  Normal  Created    57m   kubelet            Created container: currency-conversion
+  Normal  Started    57m   kubelet            Started container currency-conversion
+
+
+Name:             currency-conversion-68849877dc-zn9dp
+Namespace:        currency-conversion
+Priority:         0
+Service Account:  default
+Node:             minikube/192.168.49.2
+Start Time:       Fri, 25 Apr 2025 22:40:24 +0100
+Labels:           app=currency-conversion
+                  pod-template-hash=68849877dc
+Annotations:      <none>
+Status:           Running
+IP:               10.244.0.121
+IPs:
+  IP:           10.244.0.121
+Controlled By:  ReplicaSet/currency-conversion-68849877dc
+Containers:
+  currency-conversion:
+    Container ID:   docker://d3408e34ee6e29e1abf8272538939d8a1141259ffafff100737d905b893aba3d
+    Image:          currency-conversion:1
+    Image ID:       docker://sha256:ab2917a01a2fcafef3ddf38ab9aeac1373565d172decfb00529cd8485f9478b4
+    Port:           8000/TCP
+    Host Port:      0/TCP
+    State:          Running
+      Started:      Fri, 25 Apr 2025 22:40:25 +0100
+    Ready:          True
+    Restart Count:  0
+    Limits:
+      cpu:     500m
+      memory:  512Mi
+    Requests:
+      cpu:        250m
+      memory:     256Mi
+    Environment:  <none>
+    Mounts:
+      /var/run/secrets/kubernetes.io/serviceaccount from kube-api-access-729v4 (ro)
+Conditions:
+  Type                        Status
+  PodReadyToStartContainers   True 
+  Initialized                 True 
+  Ready                       True 
+  ContainersReady             True 
+  PodScheduled                True 
+Volumes:
+  kube-api-access-729v4:
+    Type:                    Projected (a volume that contains injected data from multiple sources)
+    TokenExpirationSeconds:  3607
+    ConfigMapName:           kube-root-ca.crt
+    ConfigMapOptional:       <nil>
+    DownwardAPI:             true
+QoS Class:                   Burstable
+Node-Selectors:              <none>
+Tolerations:                 node.kubernetes.io/not-ready:NoExecute op=Exists for 300s
+                             node.kubernetes.io/unreachable:NoExecute op=Exists for 300s
+Events:
+  Type    Reason     Age   From               Message
+  ----    ------     ----  ----               -------
+  Normal  Scheduled  57m   default-scheduler  Successfully assigned currency-conversion/currency-conversion-68849877dc-zn9dp to minikube
+  Normal  Pulled     57m   kubelet            Container image "currency-conversion:1" already present on machine
+  Normal  Created    57m   kubelet            Created container: currency-conversion
+  Normal  Started    57m   kubelet            Started container currency-conversion
+
+
+Name:             prometheus-alertmanager-0
+Namespace:        currency-conversion
+Priority:         0
+Service Account:  prometheus-alertmanager
+Node:             minikube/192.168.49.2
+Start Time:       Fri, 25 Apr 2025 23:09:18 +0100
+Labels:           app.kubernetes.io/instance=prometheus
+                  app.kubernetes.io/name=alertmanager
+                  apps.kubernetes.io/pod-index=0
+                  controller-revision-hash=prometheus-alertmanager-6fb68bfff4
+                  statefulset.kubernetes.io/pod-name=prometheus-alertmanager-0
+Annotations:      checksum/config: e8cfaf77c25f4c6438f2c5e999b867de7b02e226f5f41c7d8e64d7b443ec901d
+Status:           Running
+IP:               10.244.0.124
+IPs:
+  IP:           10.244.0.124
+Controlled By:  StatefulSet/prometheus-alertmanager
+Containers:
+  alertmanager:
+    Container ID:  docker://a873a726c35def1740b88f9f1315cdf26aac2282cba3de48d279d5916c25dbc8
+    Image:         quay.io/prometheus/alertmanager:v0.28.1
+    Image ID:      docker-pullable://quay.io/prometheus/alertmanager@sha256:27c475db5fb156cab31d5c18a4251ac7ed567746a2483ff264516437a39b15ba
+    Port:          9093/TCP
+    Host Port:     0/TCP
+    Args:
+      --storage.path=/alertmanager
+      --config.file=/etc/alertmanager/alertmanager.yml
+    State:          Running
+      Started:      Fri, 25 Apr 2025 23:09:19 +0100
+    Ready:          True
+    Restart Count:  0
+    Liveness:       http-get http://:http/ delay=0s timeout=1s period=10s #success=1 #failure=3
+    Readiness:      http-get http://:http/ delay=0s timeout=1s period=10s #success=1 #failure=3
+    Environment:
+      POD_IP:   (v1:status.podIP)
+    Mounts:
+      /alertmanager from storage (rw)
+      /etc/alertmanager from config (rw)
+      /var/run/secrets/kubernetes.io/serviceaccount from kube-api-access-jcdlv (ro)
+Conditions:
+  Type                        Status
+  PodReadyToStartContainers   True 
+  Initialized                 True 
+  Ready                       True 
+  ContainersReady             True 
+  PodScheduled                True 
+Volumes:
+  storage:
+    Type:       PersistentVolumeClaim (a reference to a PersistentVolumeClaim in the same namespace)
+    ClaimName:  storage-prometheus-alertmanager-0
+    ReadOnly:   false
+  config:
+    Type:      ConfigMap (a volume populated by a ConfigMap)
+    Name:      prometheus-alertmanager
+    Optional:  false
+  kube-api-access-jcdlv:
+    Type:                    Projected (a volume that contains injected data from multiple sources)
+    TokenExpirationSeconds:  3607
+    ConfigMapName:           kube-root-ca.crt
+    ConfigMapOptional:       <nil>
+    DownwardAPI:             true
+QoS Class:                   BestEffort
+Node-Selectors:              <none>
+Tolerations:                 node.kubernetes.io/not-ready:NoExecute op=Exists for 300s
+                             node.kubernetes.io/unreachable:NoExecute op=Exists for 300s
+Events:
+  Type    Reason     Age   From               Message
+  ----    ------     ----  ----               -------
+  Normal  Scheduled  29m   default-scheduler  Successfully assigned currency-conversion/prometheus-alertmanager-0 to minikube
+  Normal  Pulled     29m   kubelet            Container image "quay.io/prometheus/alertmanager:v0.28.1" already present on machine
+  Normal  Created    29m   kubelet            Created container: alertmanager
+  Normal  Started    29m   kubelet            Started container alertmanager
+
+
+Name:             prometheus-kube-state-metrics-c7cbfcc5d-qbtg5
+Namespace:        currency-conversion
+Priority:         0
+Service Account:  prometheus-kube-state-metrics
+Node:             minikube/192.168.49.2
+Start Time:       Fri, 25 Apr 2025 23:09:18 +0100
+Labels:           app.kubernetes.io/component=metrics
+                  app.kubernetes.io/instance=prometheus
+                  app.kubernetes.io/managed-by=Helm
+                  app.kubernetes.io/name=kube-state-metrics
+                  app.kubernetes.io/part-of=kube-state-metrics
+                  app.kubernetes.io/version=2.15.0
+                  helm.sh/chart=kube-state-metrics-5.32.0
+                  pod-template-hash=c7cbfcc5d
+Annotations:      <none>
+Status:           Running
+SeccompProfile:   RuntimeDefault
+IP:               10.244.0.122
+IPs:
+  IP:           10.244.0.122
+Controlled By:  ReplicaSet/prometheus-kube-state-metrics-c7cbfcc5d
+Containers:
+  kube-state-metrics:
+    Container ID:  docker://56c709117dcd34f1b59a36dfe11de80abe356a853d0ea0d42f9c417770e89933
+    Image:         registry.k8s.io/kube-state-metrics/kube-state-metrics:v2.15.0
+    Image ID:      docker-pullable://registry.k8s.io/kube-state-metrics/kube-state-metrics@sha256:db384bf43222b066c378e77027a675d4cd9911107adba46c2922b3a55e10d6fb
+    Port:          8080/TCP
+    Host Port:     0/TCP
+    Args:
+      --port=8080
+      --resources=certificatesigningrequests,configmaps,cronjobs,daemonsets,deployments,endpoints,horizontalpodautoscalers,ingresses,jobs,leases,limitranges,mutatingwebhookconfigurations,namespaces,networkpolicies,nodes,persistentvolumeclaims,persistentvolumes,poddisruptionbudgets,pods,replicasets,replicationcontrollers,resourcequotas,secrets,services,statefulsets,storageclasses,validatingwebhookconfigurations,volumeattachments
+    State:          Running
+      Started:      Fri, 25 Apr 2025 23:09:19 +0100
+    Ready:          True
+    Restart Count:  0
+    Liveness:       http-get http://:8080/livez delay=5s timeout=5s period=10s #success=1 #failure=3
+    Readiness:      http-get http://:8081/readyz delay=5s timeout=5s period=10s #success=1 #failure=3
+    Environment:    <none>
+    Mounts:
+      /var/run/secrets/kubernetes.io/serviceaccount from kube-api-access-5qwc6 (ro)
+Conditions:
+  Type                        Status
+  PodReadyToStartContainers   True 
+  Initialized                 True 
+  Ready                       True 
+  ContainersReady             True 
+  PodScheduled                True 
+Volumes:
+  kube-api-access-5qwc6:
+    Type:                    Projected (a volume that contains injected data from multiple sources)
+    TokenExpirationSeconds:  3607
+    ConfigMapName:           kube-root-ca.crt
+    ConfigMapOptional:       <nil>
+    DownwardAPI:             true
+QoS Class:                   BestEffort
+Node-Selectors:              <none>
+Tolerations:                 node.kubernetes.io/not-ready:NoExecute op=Exists for 300s
+                             node.kubernetes.io/unreachable:NoExecute op=Exists for 300s
+Events:
+  Type    Reason     Age   From               Message
+  ----    ------     ----  ----               -------
+  Normal  Scheduled  29m   default-scheduler  Successfully assigned currency-conversion/prometheus-kube-state-metrics-c7cbfcc5d-qbtg5 to minikube
+  Normal  Pulled     29m   kubelet            Container image "registry.k8s.io/kube-state-metrics/kube-state-metrics:v2.15.0" already present on machine
+  Normal  Created    29m   kubelet            Created container: kube-state-metrics
+  Normal  Started    29m   kubelet            Started container kube-state-metrics
+
+
+Name:             prometheus-prometheus-node-exporter-z94q4
+Namespace:        currency-conversion
+Priority:         0
+Service Account:  prometheus-prometheus-node-exporter
+Node:             minikube/192.168.49.2
+Start Time:       Fri, 25 Apr 2025 23:09:18 +0100
+Labels:           app.kubernetes.io/component=metrics
+                  app.kubernetes.io/instance=prometheus
+                  app.kubernetes.io/managed-by=Helm
+                  app.kubernetes.io/name=prometheus-node-exporter
+                  app.kubernetes.io/part-of=prometheus-node-exporter
+                  app.kubernetes.io/version=1.9.1
+                  controller-revision-hash=5cb7cc78f7
+                  helm.sh/chart=prometheus-node-exporter-4.45.2
+                  pod-template-generation=1
+Annotations:      cluster-autoscaler.kubernetes.io/safe-to-evict: true
+Status:           Running
+IP:               192.168.49.2
+IPs:
+  IP:           192.168.49.2
+Controlled By:  DaemonSet/prometheus-prometheus-node-exporter
+Containers:
+  node-exporter:
+    Container ID:  docker://33e728a3a5b3fbdec3c0114a667303b93d16e83b0e3ccbceebad36d5fda78902
+    Image:         quay.io/prometheus/node-exporter:v1.9.1
+    Image ID:      docker-pullable://quay.io/prometheus/node-exporter@sha256:d00a542e409ee618a4edc67da14dd48c5da66726bbd5537ab2af9c1dfc442c8a
+    Port:          9100/TCP
+    Host Port:     9100/TCP
+    Args:
+      --path.procfs=/host/proc
+      --path.sysfs=/host/sys
+      --path.rootfs=/host/root
+      --path.udev.data=/host/root/run/udev/data
+      --web.listen-address=[$(HOST_IP)]:9100
+    State:          Running
+      Started:      Fri, 25 Apr 2025 23:09:18 +0100
+    Ready:          True
+    Restart Count:  0
+    Liveness:       http-get http://:9100/ delay=0s timeout=1s period=10s #success=1 #failure=3
+    Readiness:      http-get http://:9100/ delay=0s timeout=1s period=10s #success=1 #failure=3
+    Environment:
+      HOST_IP:  0.0.0.0
+    Mounts:
+      /host/proc from proc (ro)
+      /host/root from root (ro)
+      /host/sys from sys (ro)
+Conditions:
+  Type                        Status
+  PodReadyToStartContainers   True 
+  Initialized                 True 
+  Ready                       True 
+  ContainersReady             True 
+  PodScheduled                True 
+Volumes:
+  proc:
+    Type:          HostPath (bare host directory volume)
+    Path:          /proc
+    HostPathType:  
+  sys:
+    Type:          HostPath (bare host directory volume)
+    Path:          /sys
+    HostPathType:  
+  root:
+    Type:          HostPath (bare host directory volume)
+    Path:          /
+    HostPathType:  
+QoS Class:         BestEffort
+Node-Selectors:    kubernetes.io/os=linux
+Tolerations:       :NoSchedule op=Exists
+                   node.kubernetes.io/disk-pressure:NoSchedule op=Exists
+                   node.kubernetes.io/memory-pressure:NoSchedule op=Exists
+                   node.kubernetes.io/network-unavailable:NoSchedule op=Exists
+                   node.kubernetes.io/not-ready:NoExecute op=Exists
+                   node.kubernetes.io/pid-pressure:NoSchedule op=Exists
+                   node.kubernetes.io/unreachable:NoExecute op=Exists
+                   node.kubernetes.io/unschedulable:NoSchedule op=Exists
+Events:
+  Type    Reason     Age   From               Message
+  ----    ------     ----  ----               -------
+  Normal  Scheduled  29m   default-scheduler  Successfully assigned currency-conversion/prometheus-prometheus-node-exporter-z94q4 to minikube
+  Normal  Pulled     29m   kubelet            Container image "quay.io/prometheus/node-exporter:v1.9.1" already present on machine
+  Normal  Created    29m   kubelet            Created container: node-exporter
+  Normal  Started    29m   kubelet            Started container node-exporter
+
+
+Name:             prometheus-prometheus-pushgateway-79c99bd4b8-wzqn7
+Namespace:        currency-conversion
+Priority:         0
+Service Account:  prometheus-prometheus-pushgateway
+Node:             minikube/192.168.49.2
+Start Time:       Fri, 25 Apr 2025 23:09:18 +0100
+Labels:           app.kubernetes.io/instance=prometheus
+                  app.kubernetes.io/managed-by=Helm
+                  app.kubernetes.io/name=prometheus-pushgateway
+                  app.kubernetes.io/version=v1.11.0
+                  helm.sh/chart=prometheus-pushgateway-3.1.0
+                  pod-template-hash=79c99bd4b8
+Annotations:      <none>
+Status:           Running
+IP:               10.244.0.125
+IPs:
+  IP:           10.244.0.125
+Controlled By:  ReplicaSet/prometheus-prometheus-pushgateway-79c99bd4b8
+Containers:
+  pushgateway:
+    Container ID:   docker://d3c39242c096842f577ac753509520c17d4856d8a3083a5d70dc07c294eb2318
+    Image:          quay.io/prometheus/pushgateway:v1.11.0
+    Image ID:       docker-pullable://quay.io/prometheus/pushgateway@sha256:99392035ae99754b40e579088710df184b6a730b77670148f44102ba9ee01d2f
+    Port:           9091/TCP
+    Host Port:      0/TCP
+    State:          Running
+      Started:      Fri, 25 Apr 2025 23:09:19 +0100
+    Ready:          True
+    Restart Count:  0
+    Liveness:       http-get http://:9091/-/healthy delay=10s timeout=10s period=10s #success=1 #failure=3
+    Readiness:      http-get http://:9091/-/ready delay=10s timeout=10s period=10s #success=1 #failure=3
+    Environment:    <none>
+    Mounts:
+      /data from storage-volume (rw)
+      /var/run/secrets/kubernetes.io/serviceaccount from kube-api-access-2bw6r (ro)
+Conditions:
+  Type                        Status
+  PodReadyToStartContainers   True 
+  Initialized                 True 
+  Ready                       True 
+  ContainersReady             True 
+  PodScheduled                True 
+Volumes:
+  storage-volume:
+    Type:       EmptyDir (a temporary directory that shares a pod's lifetime)
+    Medium:     
+    SizeLimit:  <unset>
+  kube-api-access-2bw6r:
+    Type:                    Projected (a volume that contains injected data from multiple sources)
+    TokenExpirationSeconds:  3607
+    ConfigMapName:           kube-root-ca.crt
+    ConfigMapOptional:       <nil>
+    DownwardAPI:             true
+QoS Class:                   BestEffort
+Node-Selectors:              <none>
+Tolerations:                 node.kubernetes.io/not-ready:NoExecute op=Exists for 300s
+                             node.kubernetes.io/unreachable:NoExecute op=Exists for 300s
+Events:
+  Type    Reason     Age   From               Message
+  ----    ------     ----  ----               -------
+  Normal  Scheduled  29m   default-scheduler  Successfully assigned currency-conversion/prometheus-prometheus-pushgateway-79c99bd4b8-wzqn7 to minikube
+  Normal  Pulled     29m   kubelet            Container image "quay.io/prometheus/pushgateway:v1.11.0" already present on machine
+  Normal  Created    29m   kubelet            Created container: pushgateway
+  Normal  Started    29m   kubelet            Started container pushgateway
+
+
+Name:             prometheus-server-564448f5dc-5tp9r
+Namespace:        currency-conversion
+Priority:         0
+Service Account:  prometheus-server
+Node:             minikube/192.168.49.2
+Start Time:       Fri, 25 Apr 2025 23:09:18 +0100
+Labels:           app.kubernetes.io/component=server
+                  app.kubernetes.io/instance=prometheus
+                  app.kubernetes.io/name=prometheus
+                  app.kubernetes.io/part-of=prometheus
+                  app.kubernetes.io/version=v3.3.0
+                  helm.sh/chart=prometheus-27.11.0
+                  pod-template-hash=564448f5dc
+Annotations:      <none>
+Status:           Running
+IP:               10.244.0.123
+IPs:
+  IP:           10.244.0.123
+Controlled By:  ReplicaSet/prometheus-server-564448f5dc
+Containers:
+  prometheus-server-configmap-reload:
+    Container ID:  docker://a5032b21d7816e14314fa4d758a33690ab9e5a9daa479c91073cff681a870c62
+    Image:         quay.io/prometheus-operator/prometheus-config-reloader:v0.82.0
+    Image ID:      docker-pullable://quay.io/prometheus-operator/prometheus-config-reloader@sha256:346da644c84a36cc2b8f129b088fa35ecdbe5231644f598b03247c9213a995be
+    Port:          8080/TCP
+    Host Port:     0/TCP
+    Args:
+      --watched-dir=/etc/config
+      --listen-address=0.0.0.0:8080
+      --reload-url=http://127.0.0.1:9090/-/reload
+    State:          Running
+      Started:      Fri, 25 Apr 2025 23:09:19 +0100
+    Ready:          True
+    Restart Count:  0
+    Liveness:       http-get http://:metrics/healthz delay=2s timeout=1s period=10s #success=1 #failure=3
+    Readiness:      http-get http://:metrics/healthz delay=0s timeout=1s period=10s #success=1 #failure=3
+    Environment:    <none>
+    Mounts:
+      /etc/config from config-volume (ro)
+      /var/run/secrets/kubernetes.io/serviceaccount from kube-api-access-czblz (ro)
+  prometheus-server:
+    Container ID:  docker://a1a451632f7db3f343131aa559cd7aaf603edb2d62ed60c2d44256f7dc8b99a7
+    Image:         quay.io/prometheus/prometheus:v3.3.0
+    Image ID:      docker-pullable://quay.io/prometheus/prometheus@sha256:339ce86a59413be18d0e445472891d022725b4803fab609069110205e79fb2f1
+    Port:          9090/TCP
+    Host Port:     0/TCP
+    Args:
+      --storage.tsdb.retention.time=15d
+      --config.file=/etc/config/prometheus.yml
+      --storage.tsdb.path=/data
+      --web.console.libraries=/etc/prometheus/console_libraries
+      --web.console.templates=/etc/prometheus/consoles
+      --web.enable-lifecycle
+    State:          Running
+      Started:      Fri, 25 Apr 2025 23:09:19 +0100
+    Ready:          True
+    Restart Count:  0
+    Liveness:       http-get http://:9090/-/healthy delay=30s timeout=10s period=15s #success=1 #failure=3
+    Readiness:      http-get http://:9090/-/ready delay=30s timeout=4s period=5s #success=1 #failure=3
+    Environment:    <none>
+    Mounts:
+      /data from storage-volume (rw)
+      /etc/config from config-volume (rw)
+      /var/run/secrets/kubernetes.io/serviceaccount from kube-api-access-czblz (ro)
+Conditions:
+  Type                        Status
+  PodReadyToStartContainers   True 
+  Initialized                 True 
+  Ready                       True 
+  ContainersReady             True 
+  PodScheduled                True 
+Volumes:
+  config-volume:
+    Type:      ConfigMap (a volume populated by a ConfigMap)
+    Name:      prometheus-server
+    Optional:  false
+  storage-volume:
+    Type:       PersistentVolumeClaim (a reference to a PersistentVolumeClaim in the same namespace)
+    ClaimName:  prometheus-server
+    ReadOnly:   false
+  kube-api-access-czblz:
+    Type:                    Projected (a volume that contains injected data from multiple sources)
+    TokenExpirationSeconds:  3607
+    ConfigMapName:           kube-root-ca.crt
+    ConfigMapOptional:       <nil>
+    DownwardAPI:             true
+QoS Class:                   BestEffort
+Node-Selectors:              <none>
+Tolerations:                 node.kubernetes.io/not-ready:NoExecute op=Exists for 300s
+                             node.kubernetes.io/unreachable:NoExecute op=Exists for 300s
+Events:
+  Type    Reason     Age   From               Message
+  ----    ------     ----  ----               -------
+  Normal  Scheduled  29m   default-scheduler  Successfully assigned currency-conversion/prometheus-server-564448f5dc-5tp9r to minikube
+  Normal  Pulled     29m   kubelet            Container image "quay.io/prometheus-operator/prometheus-config-reloader:v0.82.0" already present on machine
+  Normal  Created    29m   kubelet            Created container: prometheus-server-configmap-reload
+  Normal  Started    29m   kubelet            Started container prometheus-server-configmap-reload
+  Normal  Pulled     29m   kubelet            Container image "quay.io/prometheus/prometheus:v3.3.0" already present on machine
+  Normal  Created    29m   kubelet            Created container: prometheus-server
+  Normal  Started    29m   kubelet            Started container prometheus-server
+
+
+Name:                     currency-conversion-service
+Namespace:                currency-conversion
+Labels:                   app.kubernetes.io/managed-by=Helm
+Annotations:              meta.helm.sh/release-name: currency-conversion
+                          meta.helm.sh/release-namespace: currency-conversion
+Selector:                 app.kubernetes.io/name=currency-conversion
+Type:                     ClusterIP
+IP Family Policy:         SingleStack
+IP Families:              IPv4
+IP:                       10.109.143.109
+IPs:                      10.109.143.109
+Port:                     <unset>  8000/TCP
+TargetPort:               8000/TCP
+Endpoints:                
+Session Affinity:         None
+Internal Traffic Policy:  Cluster
+Events:                   <none>
+
+
+Name:                     prometheus-alertmanager
+Namespace:                currency-conversion
+Labels:                   app.kubernetes.io/instance=prometheus
+                          app.kubernetes.io/managed-by=Helm
+                          app.kubernetes.io/name=alertmanager
+                          app.kubernetes.io/version=v0.28.1
+                          helm.sh/chart=alertmanager-1.16.1
+Annotations:              meta.helm.sh/release-name: prometheus
+                          meta.helm.sh/release-namespace: currency-conversion
+Selector:                 app.kubernetes.io/instance=prometheus,app.kubernetes.io/name=alertmanager
+Type:                     ClusterIP
+IP Family Policy:         SingleStack
+IP Families:              IPv4
+IP:                       10.106.21.58
+IPs:                      10.106.21.58
+Port:                     http  9093/TCP
+TargetPort:               http/TCP
+Endpoints:                10.244.0.124:9093
+Session Affinity:         None
+Internal Traffic Policy:  Cluster
+Events:                   <none>
+
+
+Name:                     prometheus-alertmanager-headless
+Namespace:                currency-conversion
+Labels:                   app.kubernetes.io/instance=prometheus
+                          app.kubernetes.io/managed-by=Helm
+                          app.kubernetes.io/name=alertmanager
+                          app.kubernetes.io/version=v0.28.1
+                          helm.sh/chart=alertmanager-1.16.1
+Annotations:              meta.helm.sh/release-name: prometheus
+                          meta.helm.sh/release-namespace: currency-conversion
+Selector:                 app.kubernetes.io/instance=prometheus,app.kubernetes.io/name=alertmanager
+Type:                     ClusterIP
+IP Family Policy:         SingleStack
+IP Families:              IPv4
+IP:                       None
+IPs:                      None
+Port:                     http  9093/TCP
+TargetPort:               http/TCP
+Endpoints:                10.244.0.124:9093
+Session Affinity:         None
+Internal Traffic Policy:  Cluster
+Events:                   <none>
+
+
+Name:                     prometheus-kube-state-metrics
+Namespace:                currency-conversion
+Labels:                   app.kubernetes.io/component=metrics
+                          app.kubernetes.io/instance=prometheus
+                          app.kubernetes.io/managed-by=Helm
+                          app.kubernetes.io/name=kube-state-metrics
+                          app.kubernetes.io/part-of=kube-state-metrics
+                          app.kubernetes.io/version=2.15.0
+                          helm.sh/chart=kube-state-metrics-5.32.0
+Annotations:              meta.helm.sh/release-name: prometheus
+                          meta.helm.sh/release-namespace: currency-conversion
+                          prometheus.io/scrape: true
+Selector:                 app.kubernetes.io/instance=prometheus,app.kubernetes.io/name=kube-state-metrics
+Type:                     ClusterIP
+IP Family Policy:         SingleStack
+IP Families:              IPv4
+IP:                       10.111.90.19
+IPs:                      10.111.90.19
+Port:                     http  8080/TCP
+TargetPort:               8080/TCP
+Endpoints:                10.244.0.122:8080
+Session Affinity:         None
+Internal Traffic Policy:  Cluster
+Events:                   <none>
+
+
+Name:                     prometheus-prometheus-node-exporter
+Namespace:                currency-conversion
+Labels:                   app.kubernetes.io/component=metrics
+                          app.kubernetes.io/instance=prometheus
+                          app.kubernetes.io/managed-by=Helm
+                          app.kubernetes.io/name=prometheus-node-exporter
+                          app.kubernetes.io/part-of=prometheus-node-exporter
+                          app.kubernetes.io/version=1.9.1
+                          helm.sh/chart=prometheus-node-exporter-4.45.2
+Annotations:              meta.helm.sh/release-name: prometheus
+                          meta.helm.sh/release-namespace: currency-conversion
+                          prometheus.io/scrape: true
+Selector:                 app.kubernetes.io/instance=prometheus,app.kubernetes.io/name=prometheus-node-exporter
+Type:                     ClusterIP
+IP Family Policy:         SingleStack
+IP Families:              IPv4
+IP:                       10.108.250.48
+IPs:                      10.108.250.48
+Port:                     metrics  9100/TCP
+TargetPort:               9100/TCP
+Endpoints:                192.168.49.2:9100
+Session Affinity:         None
+Internal Traffic Policy:  Cluster
+Events:                   <none>
+
+
+Name:                     prometheus-prometheus-pushgateway
+Namespace:                currency-conversion
+Labels:                   app.kubernetes.io/instance=prometheus
+                          app.kubernetes.io/managed-by=Helm
+                          app.kubernetes.io/name=prometheus-pushgateway
+                          app.kubernetes.io/version=v1.11.0
+                          helm.sh/chart=prometheus-pushgateway-3.1.0
+Annotations:              meta.helm.sh/release-name: prometheus
+                          meta.helm.sh/release-namespace: currency-conversion
+                          prometheus.io/probe: pushgateway
+Selector:                 app.kubernetes.io/instance=prometheus,app.kubernetes.io/name=prometheus-pushgateway
+Type:                     ClusterIP
+IP Family Policy:         SingleStack
+IP Families:              IPv4
+IP:                       10.110.203.173
+IPs:                      10.110.203.173
+Port:                     http  9091/TCP
+TargetPort:               9091/TCP
+Endpoints:                10.244.0.125:9091
+Session Affinity:         None
+Internal Traffic Policy:  Cluster
+Events:                   <none>
+
+
+Name:                     prometheus-server
+Namespace:                currency-conversion
+Labels:                   app.kubernetes.io/component=server
+                          app.kubernetes.io/instance=prometheus
+                          app.kubernetes.io/managed-by=Helm
+                          app.kubernetes.io/name=prometheus
+                          app.kubernetes.io/part-of=prometheus
+                          app.kubernetes.io/version=v3.3.0
+                          helm.sh/chart=prometheus-27.11.0
+Annotations:              meta.helm.sh/release-name: prometheus
+                          meta.helm.sh/release-namespace: currency-conversion
+Selector:                 app.kubernetes.io/component=server,app.kubernetes.io/instance=prometheus,app.kubernetes.io/name=prometheus
+Type:                     ClusterIP
+IP Family Policy:         SingleStack
+IP Families:              IPv4
+IP:                       10.107.156.74
+IPs:                      10.107.156.74
+Port:                     http  80/TCP
+TargetPort:               9090/TCP
+Endpoints:                10.244.0.123:9090
+Session Affinity:         None
+Internal Traffic Policy:  Cluster
+Events:                   <none>
+
+
+Name:                   currency-conversion
+Namespace:              currency-conversion
+CreationTimestamp:      Fri, 25 Apr 2025 22:40:24 +0100
+Labels:                 app=currency-conversion
+                        app.kubernetes.io/managed-by=Helm
+Annotations:            deployment.kubernetes.io/revision: 1
+                        meta.helm.sh/release-name: currency-conversion
+                        meta.helm.sh/release-namespace: currency-conversion
+Selector:               app=currency-conversion
+Replicas:               2 desired | 2 updated | 2 total | 2 available | 0 unavailable
+StrategyType:           RollingUpdate
+MinReadySeconds:        0
+RollingUpdateStrategy:  25% max unavailable, 25% max surge
+Pod Template:
+  Labels:  app=currency-conversion
+  Containers:
+   currency-conversion:
+    Image:      currency-conversion:1
+    Port:       8000/TCP
+    Host Port:  0/TCP
+    Limits:
+      cpu:     500m
+      memory:  512Mi
+    Requests:
+      cpu:         250m
+      memory:      256Mi
+    Environment:   <none>
+    Mounts:        <none>
+  Volumes:         <none>
+  Node-Selectors:  <none>
+  Tolerations:     <none>
+Conditions:
+  Type           Status  Reason
+  ----           ------  ------
+  Available      True    MinimumReplicasAvailable
+  Progressing    True    NewReplicaSetAvailable
+OldReplicaSets:  <none>
+NewReplicaSet:   currency-conversion-68849877dc (2/2 replicas created)
+Events:
+  Type    Reason             Age   From                   Message
+  ----    ------             ----  ----                   -------
+  Normal  ScalingReplicaSet  57m   deployment-controller  Scaled up replica set currency-conversion-68849877dc from 0 to 2
+
+
+Name:                   prometheus-kube-state-metrics
+Namespace:              currency-conversion
+CreationTimestamp:      Fri, 25 Apr 2025 23:09:18 +0100
+Labels:                 app.kubernetes.io/component=metrics
+                        app.kubernetes.io/instance=prometheus
+                        app.kubernetes.io/managed-by=Helm
+                        app.kubernetes.io/name=kube-state-metrics
+                        app.kubernetes.io/part-of=kube-state-metrics
+                        app.kubernetes.io/version=2.15.0
+                        helm.sh/chart=kube-state-metrics-5.32.0
+Annotations:            deployment.kubernetes.io/revision: 1
+                        meta.helm.sh/release-name: prometheus
+                        meta.helm.sh/release-namespace: currency-conversion
+Selector:               app.kubernetes.io/instance=prometheus,app.kubernetes.io/name=kube-state-metrics
+Replicas:               1 desired | 1 updated | 1 total | 1 available | 0 unavailable
+StrategyType:           RollingUpdate
+MinReadySeconds:        0
+RollingUpdateStrategy:  25% max unavailable, 25% max surge
+Pod Template:
+  Labels:           app.kubernetes.io/component=metrics
+                    app.kubernetes.io/instance=prometheus
+                    app.kubernetes.io/managed-by=Helm
+                    app.kubernetes.io/name=kube-state-metrics
+                    app.kubernetes.io/part-of=kube-state-metrics
+                    app.kubernetes.io/version=2.15.0
+                    helm.sh/chart=kube-state-metrics-5.32.0
+  Service Account:  prometheus-kube-state-metrics
+  Containers:
+   kube-state-metrics:
+    Image:      registry.k8s.io/kube-state-metrics/kube-state-metrics:v2.15.0
+    Port:       8080/TCP
+    Host Port:  0/TCP
+    Args:
+      --port=8080
+      --resources=certificatesigningrequests,configmaps,cronjobs,daemonsets,deployments,endpoints,horizontalpodautoscalers,ingresses,jobs,leases,limitranges,mutatingwebhookconfigurations,namespaces,networkpolicies,nodes,persistentvolumeclaims,persistentvolumes,poddisruptionbudgets,pods,replicasets,replicationcontrollers,resourcequotas,secrets,services,statefulsets,storageclasses,validatingwebhookconfigurations,volumeattachments
+    Liveness:      http-get http://:8080/livez delay=5s timeout=5s period=10s #success=1 #failure=3
+    Readiness:     http-get http://:8081/readyz delay=5s timeout=5s period=10s #success=1 #failure=3
+    Environment:   <none>
+    Mounts:        <none>
+  Volumes:         <none>
+  Node-Selectors:  <none>
+  Tolerations:     <none>
+Conditions:
+  Type           Status  Reason
+  ----           ------  ------
+  Available      True    MinimumReplicasAvailable
+  Progressing    True    NewReplicaSetAvailable
+OldReplicaSets:  <none>
+NewReplicaSet:   prometheus-kube-state-metrics-c7cbfcc5d (1/1 replicas created)
+Events:
+  Type    Reason             Age   From                   Message
+  ----    ------             ----  ----                   -------
+  Normal  ScalingReplicaSet  29m   deployment-controller  Scaled up replica set prometheus-kube-state-metrics-c7cbfcc5d from 0 to 1
+
+
+Name:               prometheus-prometheus-pushgateway
+Namespace:          currency-conversion
+CreationTimestamp:  Fri, 25 Apr 2025 23:09:18 +0100
+Labels:             app.kubernetes.io/instance=prometheus
+                    app.kubernetes.io/managed-by=Helm
+                    app.kubernetes.io/name=prometheus-pushgateway
+                    app.kubernetes.io/version=v1.11.0
+                    helm.sh/chart=prometheus-pushgateway-3.1.0
+Annotations:        deployment.kubernetes.io/revision: 1
+                    meta.helm.sh/release-name: prometheus
+                    meta.helm.sh/release-namespace: currency-conversion
+Selector:           app.kubernetes.io/instance=prometheus,app.kubernetes.io/name=prometheus-pushgateway
+Replicas:           1 desired | 1 updated | 1 total | 1 available | 0 unavailable
+StrategyType:       Recreate
+MinReadySeconds:    0
+Pod Template:
+  Labels:           app.kubernetes.io/instance=prometheus
+                    app.kubernetes.io/managed-by=Helm
+                    app.kubernetes.io/name=prometheus-pushgateway
+                    app.kubernetes.io/version=v1.11.0
+                    helm.sh/chart=prometheus-pushgateway-3.1.0
+  Service Account:  prometheus-prometheus-pushgateway
+  Containers:
+   pushgateway:
+    Image:        quay.io/prometheus/pushgateway:v1.11.0
+    Port:         9091/TCP
+    Host Port:    0/TCP
+    Liveness:     http-get http://:9091/-/healthy delay=10s timeout=10s period=10s #success=1 #failure=3
+    Readiness:    http-get http://:9091/-/ready delay=10s timeout=10s period=10s #success=1 #failure=3
+    Environment:  <none>
+    Mounts:
+      /data from storage-volume (rw)
+  Volumes:
+   storage-volume:
+    Type:          EmptyDir (a temporary directory that shares a pod's lifetime)
+    Medium:        
+    SizeLimit:     <unset>
+  Node-Selectors:  <none>
+  Tolerations:     <none>
+Conditions:
+  Type           Status  Reason
+  ----           ------  ------
+  Available      True    MinimumReplicasAvailable
+  Progressing    True    NewReplicaSetAvailable
+OldReplicaSets:  <none>
+NewReplicaSet:   prometheus-prometheus-pushgateway-79c99bd4b8 (1/1 replicas created)
+Events:
+  Type    Reason             Age   From                   Message
+  ----    ------             ----  ----                   -------
+  Normal  ScalingReplicaSet  29m   deployment-controller  Scaled up replica set prometheus-prometheus-pushgateway-79c99bd4b8 from 0 to 1
+
+
+Name:               prometheus-server
+Namespace:          currency-conversion
+CreationTimestamp:  Fri, 25 Apr 2025 23:09:18 +0100
+Labels:             app.kubernetes.io/component=server
+                    app.kubernetes.io/instance=prometheus
+                    app.kubernetes.io/managed-by=Helm
+                    app.kubernetes.io/name=prometheus
+                    app.kubernetes.io/part-of=prometheus
+                    app.kubernetes.io/version=v3.3.0
+                    helm.sh/chart=prometheus-27.11.0
+Annotations:        deployment.kubernetes.io/revision: 1
+                    meta.helm.sh/release-name: prometheus
+                    meta.helm.sh/release-namespace: currency-conversion
+Selector:           app.kubernetes.io/component=server,app.kubernetes.io/instance=prometheus,app.kubernetes.io/name=prometheus
+Replicas:           1 desired | 1 updated | 1 total | 1 available | 0 unavailable
+StrategyType:       Recreate
+MinReadySeconds:    0
+Pod Template:
+  Labels:           app.kubernetes.io/component=server
+                    app.kubernetes.io/instance=prometheus
+                    app.kubernetes.io/name=prometheus
+                    app.kubernetes.io/part-of=prometheus
+                    app.kubernetes.io/version=v3.3.0
+                    helm.sh/chart=prometheus-27.11.0
+  Service Account:  prometheus-server
+  Containers:
+   prometheus-server-configmap-reload:
+    Image:      quay.io/prometheus-operator/prometheus-config-reloader:v0.82.0
+    Port:       8080/TCP
+    Host Port:  0/TCP
+    Args:
+      --watched-dir=/etc/config
+      --listen-address=0.0.0.0:8080
+      --reload-url=http://127.0.0.1:9090/-/reload
+    Liveness:     http-get http://:metrics/healthz delay=2s timeout=1s period=10s #success=1 #failure=3
+    Readiness:    http-get http://:metrics/healthz delay=0s timeout=1s period=10s #success=1 #failure=3
+    Environment:  <none>
+    Mounts:
+      /etc/config from config-volume (ro)
+   prometheus-server:
+    Image:      quay.io/prometheus/prometheus:v3.3.0
+    Port:       9090/TCP
+    Host Port:  0/TCP
+    Args:
+      --storage.tsdb.retention.time=15d
+      --config.file=/etc/config/prometheus.yml
+      --storage.tsdb.path=/data
+      --web.console.libraries=/etc/prometheus/console_libraries
+      --web.console.templates=/etc/prometheus/consoles
+      --web.enable-lifecycle
+    Liveness:     http-get http://:9090/-/healthy delay=30s timeout=10s period=15s #success=1 #failure=3
+    Readiness:    http-get http://:9090/-/ready delay=30s timeout=4s period=5s #success=1 #failure=3
+    Environment:  <none>
+    Mounts:
+      /data from storage-volume (rw)
+      /etc/config from config-volume (rw)
+  Volumes:
+   config-volume:
+    Type:      ConfigMap (a volume populated by a ConfigMap)
+    Name:      prometheus-server
+    Optional:  false
+   storage-volume:
+    Type:          PersistentVolumeClaim (a reference to a PersistentVolumeClaim in the same namespace)
+    ClaimName:     prometheus-server
+    ReadOnly:      false
+  Node-Selectors:  <none>
+  Tolerations:     <none>
+Conditions:
+  Type           Status  Reason
+  ----           ------  ------
+  Available      True    MinimumReplicasAvailable
+  Progressing    True    NewReplicaSetAvailable
+OldReplicaSets:  <none>
+NewReplicaSet:   prometheus-server-564448f5dc (1/1 replicas created)
+Events:
+  Type    Reason             Age   From                   Message
+  ----    ------             ----  ----                   -------
+  Normal  ScalingReplicaSet  29m   deployment-controller  Scaled up replica set prometheus-server-564448f5dc from 0 to 1
+
+
+Name:         kube-root-ca.crt
+Namespace:    currency-conversion
+Labels:       <none>
+Annotations:  kubernetes.io/description:
+                Contains a CA bundle that can be used to verify the kube-apiserver when using internal endpoints such as the internal service IP or kubern...
+
+Data
+====
+ca.crt:
+----
+-----BEGIN CERTIFICATE-----
+MIIDBjCCAe6gAwIBAgIBATANBgkqhkiG9w0BAQsFADAVMRMwEQYDVQQDEwptaW5p
+a3ViZUNBMB4XDTI1MDQyNDEwMTQ1NloXDTM1MDQyMzEwMTQ1NlowFTETMBEGA1UE
+AxMKbWluaWt1YmVDQTCCASIwDQYJKoZIhvcNAQEBBQADggEPADCCAQoCggEBALBJ
+y2kKENYLZdFx9j7TpWHrlrez7L6pyo4gVcwJFom/2kATEbs6Tz2eiE2j0jxgS6gd
+/Iba0eGDFUkXKFugaheuvNBMWsBV1f+4Fgubc5oY/IgyiuLYizQhsBvEHk2nGkY4
+baKF1rxM7hXOV4wdARnLeOyCuExP5fckEAI8aGcMFAo1ezgEFh5HL3PPPh+li9EQ
+V6Xl+5KmkuAwh32ym5GfzrZfmDnkoS8wWgJw6kje4iGAeYn3CwuSAAqMIAt586XN
+0uLUwGjI5IbdjAft8VFsa9BjWd+7WTJhzu5tLdvZFtKy/BusMoHHF7RWV9fbl6Wu
+Ajo775G/q8ujXJeGb5MCAwEAAaNhMF8wDgYDVR0PAQH/BAQDAgKkMB0GA1UdJQQW
+MBQGCCsGAQUFBwMCBggrBgEFBQcDATAPBgNVHRMBAf8EBTADAQH/MB0GA1UdDgQW
+BBQfuTqnlEsgchvfNfCDyFFxMgus2DANBgkqhkiG9w0BAQsFAAOCAQEACv5LA81O
+28N7F9kk/4hB04K8hMgTKVyuQ4OpT7jGtRyzGgebB7M+5xAgEmRGiSoCsqS/5kh2
+U3ZjBEVGKPWT5STRIli94NYLD0AR3W9RzBWrxx2rbZ3HQf5pDlGLTYAtCZdeuoVH
+rXsLQto+qLe4EcsOEUzIlN2xpq34/HadfltT6CCNIQ9uZIEG9Vcka+4wKqzgR3j7
++7F+gYoHI+GUgiOjf4PHQqf8SjvgJXHHOtTU5cyw/SbZCCDQPjDhUWEWZx9cGblu
+/MZ1CNFx9mygRpvxaWho63vumRUtQchT5oJgSE6WGMcf/TLqXbjJ1uaowFI+KBXn
+6ob5mRuAw5RZFQ==
+-----END CERTIFICATE-----
+
+
+
+BinaryData
+====
+
+Events:  <none>
+
+
+Name:         prometheus-alertmanager
+Namespace:    currency-conversion
+Labels:       app.kubernetes.io/instance=prometheus
+              app.kubernetes.io/managed-by=Helm
+              app.kubernetes.io/name=alertmanager
+              app.kubernetes.io/version=v0.28.1
+              helm.sh/chart=alertmanager-1.16.1
+Annotations:  meta.helm.sh/release-name: prometheus
+              meta.helm.sh/release-namespace: currency-conversion
+
+Data
+====
+alertmanager.yml:
+----
+global: {}
+receivers:
+- name: default-receiver
+route:
+  group_interval: 5m
+  group_wait: 10s
+  receiver: default-receiver
+  repeat_interval: 3h
+templates:
+- /etc/alertmanager/*.tmpl
+
+
+
+BinaryData
+====
+
+Events:  <none>
+
+
+Name:         prometheus-server
+Namespace:    currency-conversion
+Labels:       app.kubernetes.io/component=server
+              app.kubernetes.io/instance=prometheus
+              app.kubernetes.io/managed-by=Helm
+              app.kubernetes.io/name=prometheus
+              app.kubernetes.io/part-of=prometheus
+              app.kubernetes.io/version=v3.3.0
+              helm.sh/chart=prometheus-27.11.0
+Annotations:  meta.helm.sh/release-name: prometheus
+              meta.helm.sh/release-namespace: currency-conversion
+
+Data
+====
+rules:
+----
+{}
+
+
+alerting_rules.yml:
+----
+{}
+
+
+alerts:
+----
+{}
+
+
+allow-snippet-annotations:
+----
+false
+
+prometheus.yml:
+----
+global:
+  evaluation_interval: 1m
+  scrape_interval: 1m
+  scrape_timeout: 10s
+rule_files:
+- /etc/config/recording_rules.yml
+- /etc/config/alerting_rules.yml
+- /etc/config/rules
+- /etc/config/alerts
+scrape_configs:
+- job_name: prometheus
+  static_configs:
+  - targets:
+    - localhost:9090
+- bearer_token_file: /var/run/secrets/kubernetes.io/serviceaccount/token
+  job_name: kubernetes-apiservers
+  kubernetes_sd_configs:
+  - role: endpoints
+  relabel_configs:
+  - action: keep
+    regex: default;kubernetes;https
+    source_labels:
+    - __meta_kubernetes_namespace
+    - __meta_kubernetes_service_name
+    - __meta_kubernetes_endpoint_port_name
+  scheme: https
+  tls_config:
+    ca_file: /var/run/secrets/kubernetes.io/serviceaccount/ca.crt
+- bearer_token_file: /var/run/secrets/kubernetes.io/serviceaccount/token
+  job_name: kubernetes-nodes
+  kubernetes_sd_configs:
+  - role: node
+  relabel_configs:
+  - action: labelmap
+    regex: __meta_kubernetes_node_label_(.+)
+  - replacement: kubernetes.default.svc:443
+    target_label: __address__
+  - regex: (.+)
+    replacement: /api/v1/nodes/$1/proxy/metrics
+    source_labels:
+    - __meta_kubernetes_node_name
+    target_label: __metrics_path__
+  scheme: https
+  tls_config:
+    ca_file: /var/run/secrets/kubernetes.io/serviceaccount/ca.crt
+- bearer_token_file: /var/run/secrets/kubernetes.io/serviceaccount/token
+  job_name: kubernetes-nodes-cadvisor
+  kubernetes_sd_configs:
+  - role: node
+  relabel_configs:
+  - action: labelmap
+    regex: __meta_kubernetes_node_label_(.+)
+  - replacement: kubernetes.default.svc:443
+    target_label: __address__
+  - regex: (.+)
+    replacement: /api/v1/nodes/$1/proxy/metrics/cadvisor
+    source_labels:
+    - __meta_kubernetes_node_name
+    target_label: __metrics_path__
+  scheme: https
+  tls_config:
+    ca_file: /var/run/secrets/kubernetes.io/serviceaccount/ca.crt
+- honor_labels: true
+  job_name: kubernetes-service-endpoints
+  kubernetes_sd_configs:
+  - role: endpoints
+  relabel_configs:
+  - action: keep
+    regex: true
+    source_labels:
+    - __meta_kubernetes_service_annotation_prometheus_io_scrape
+  - action: drop
+    regex: true
+    source_labels:
+    - __meta_kubernetes_service_annotation_prometheus_io_scrape_slow
+  - action: replace
+    regex: (https?)
+    source_labels:
+    - __meta_kubernetes_service_annotation_prometheus_io_scheme
+    target_label: __scheme__
+  - action: replace
+    regex: (.+)
+    source_labels:
+    - __meta_kubernetes_service_annotation_prometheus_io_path
+    target_label: __metrics_path__
+  - action: replace
+    regex: (.+?)(?::\d+)?;(\d+)
+    replacement: $1:$2
+    source_labels:
+    - __address__
+    - __meta_kubernetes_service_annotation_prometheus_io_port
+    target_label: __address__
+  - action: labelmap
+    regex: __meta_kubernetes_service_annotation_prometheus_io_param_(.+)
+    replacement: __param_$1
+  - action: labelmap
+    regex: __meta_kubernetes_service_label_(.+)
+  - action: replace
+    source_labels:
+    - __meta_kubernetes_namespace
+    target_label: namespace
+  - action: replace
+    source_labels:
+    - __meta_kubernetes_service_name
+    target_label: service
+  - action: replace
+    source_labels:
+    - __meta_kubernetes_pod_node_name
+    target_label: node
+- honor_labels: true
+  job_name: kubernetes-service-endpoints-slow
+  kubernetes_sd_configs:
+  - role: endpoints
+  relabel_configs:
+  - action: keep
+    regex: true
+    source_labels:
+    - __meta_kubernetes_service_annotation_prometheus_io_scrape_slow
+  - action: replace
+    regex: (https?)
+    source_labels:
+    - __meta_kubernetes_service_annotation_prometheus_io_scheme
+    target_label: __scheme__
+  - action: replace
+    regex: (.+)
+    source_labels:
+    - __meta_kubernetes_service_annotation_prometheus_io_path
+    target_label: __metrics_path__
+  - action: replace
+    regex: (.+?)(?::\d+)?;(\d+)
+    replacement: $1:$2
+    source_labels:
+    - __address__
+    - __meta_kubernetes_service_annotation_prometheus_io_port
+    target_label: __address__
+  - action: labelmap
+    regex: __meta_kubernetes_service_annotation_prometheus_io_param_(.+)
+    replacement: __param_$1
+  - action: labelmap
+    regex: __meta_kubernetes_service_label_(.+)
+  - action: replace
+    source_labels:
+    - __meta_kubernetes_namespace
+    target_label: namespace
+  - action: replace
+    source_labels:
+    - __meta_kubernetes_service_name
+    target_label: service
+  - action: replace
+    source_labels:
+    - __meta_kubernetes_pod_node_name
+    target_label: node
+  scrape_interval: 5m
+  scrape_timeout: 30s
+- honor_labels: true
+  job_name: prometheus-pushgateway
+  kubernetes_sd_configs:
+  - role: service
+  relabel_configs:
+  - action: keep
+    regex: pushgateway
+    source_labels:
+    - __meta_kubernetes_service_annotation_prometheus_io_probe
+- honor_labels: true
+  job_name: kubernetes-services
+  kubernetes_sd_configs:
+  - role: service
+  metrics_path: /probe
+  params:
+    module:
+    - http_2xx
+  relabel_configs:
+  - action: keep
+    regex: true
+    source_labels:
+    - __meta_kubernetes_service_annotation_prometheus_io_probe
+  - source_labels:
+    - __address__
+    target_label: __param_target
+  - replacement: blackbox
+    target_label: __address__
+  - source_labels:
+    - __param_target
+    target_label: instance
+  - action: labelmap
+    regex: __meta_kubernetes_service_label_(.+)
+  - source_labels:
+    - __meta_kubernetes_namespace
+    target_label: namespace
+  - source_labels:
+    - __meta_kubernetes_service_name
+    target_label: service
+- honor_labels: true
+  job_name: kubernetes-pods
+  kubernetes_sd_configs:
+  - role: pod
+  relabel_configs:
+  - action: keep
+    regex: true
+    source_labels:
+    - __meta_kubernetes_pod_annotation_prometheus_io_scrape
+  - action: drop
+    regex: true
+    source_labels:
+    - __meta_kubernetes_pod_annotation_prometheus_io_scrape_slow
+  - action: replace
+    regex: (https?)
+    source_labels:
+    - __meta_kubernetes_pod_annotation_prometheus_io_scheme
+    target_label: __scheme__
+  - action: replace
+    regex: (.+)
+    source_labels:
+    - __meta_kubernetes_pod_annotation_prometheus_io_path
+    target_label: __metrics_path__
+  - action: replace
+    regex: (\d+);(([A-Fa-f0-9]{1,4}::?){1,7}[A-Fa-f0-9]{1,4})
+    replacement: '[$2]:$1'
+    source_labels:
+    - __meta_kubernetes_pod_annotation_prometheus_io_port
+    - __meta_kubernetes_pod_ip
+    target_label: __address__
+  - action: replace
+    regex: (\d+);((([0-9]+?)(\.|$)){4})
+    replacement: $2:$1
+    source_labels:
+    - __meta_kubernetes_pod_annotation_prometheus_io_port
+    - __meta_kubernetes_pod_ip
+    target_label: __address__
+  - action: labelmap
+    regex: __meta_kubernetes_pod_annotation_prometheus_io_param_(.+)
+    replacement: __param_$1
+  - action: labelmap
+    regex: __meta_kubernetes_pod_label_(.+)
+  - action: replace
+    source_labels:
+    - __meta_kubernetes_namespace
+    target_label: namespace
+  - action: replace
+    source_labels:
+    - __meta_kubernetes_pod_name
+    target_label: pod
+  - action: drop
+    regex: Pending|Succeeded|Failed|Completed
+    source_labels:
+    - __meta_kubernetes_pod_phase
+  - action: replace
+    source_labels:
+    - __meta_kubernetes_pod_node_name
+    target_label: node
+- honor_labels: true
+  job_name: kubernetes-pods-slow
+  kubernetes_sd_configs:
+  - role: pod
+  relabel_configs:
+  - action: keep
+    regex: true
+    source_labels:
+    - __meta_kubernetes_pod_annotation_prometheus_io_scrape_slow
+  - action: replace
+    regex: (https?)
+    source_labels:
+    - __meta_kubernetes_pod_annotation_prometheus_io_scheme
+    target_label: __scheme__
+  - action: replace
+    regex: (.+)
+    source_labels:
+    - __meta_kubernetes_pod_annotation_prometheus_io_path
+    target_label: __metrics_path__
+  - action: replace
+    regex: (\d+);(([A-Fa-f0-9]{1,4}::?){1,7}[A-Fa-f0-9]{1,4})
+    replacement: '[$2]:$1'
+    source_labels:
+    - __meta_kubernetes_pod_annotation_prometheus_io_port
+    - __meta_kubernetes_pod_ip
+    target_label: __address__
+  - action: replace
+    regex: (\d+);((([0-9]+?)(\.|$)){4})
+    replacement: $2:$1
+    source_labels:
+    - __meta_kubernetes_pod_annotation_prometheus_io_port
+    - __meta_kubernetes_pod_ip
+    target_label: __address__
+  - action: labelmap
+    regex: __meta_kubernetes_pod_annotation_prometheus_io_param_(.+)
+    replacement: __param_$1
+  - action: labelmap
+    regex: __meta_kubernetes_pod_label_(.+)
+  - action: replace
+    source_labels:
+    - __meta_kubernetes_namespace
+    target_label: namespace
+  - action: replace
+    source_labels:
+    - __meta_kubernetes_pod_name
+    target_label: pod
+  - action: drop
+    regex: Pending|Succeeded|Failed|Completed
+    source_labels:
+    - __meta_kubernetes_pod_phase
+  - action: replace
+    source_labels:
+    - __meta_kubernetes_pod_node_name
+    target_label: node
+  scrape_interval: 5m
+  scrape_timeout: 30s
+alerting:
+  alertmanagers:
+  - kubernetes_sd_configs:
+      - role: pod
+    tls_config:
+      ca_file: /var/run/secrets/kubernetes.io/serviceaccount/ca.crt
+    bearer_token_file: /var/run/secrets/kubernetes.io/serviceaccount/token
+    relabel_configs:
+    - source_labels: [__meta_kubernetes_namespace]
+      regex: currency-conversion
+      action: keep
+    - source_labels: [__meta_kubernetes_pod_label_app_kubernetes_io_instance]
+      regex: prometheus
+      action: keep
+    - source_labels: [__meta_kubernetes_pod_label_app_kubernetes_io_name]
+      regex: alertmanager
+      action: keep
+    - source_labels: [__meta_kubernetes_pod_container_port_number]
+      regex: "9093"
+      action: keep
+
+
+recording_rules.yml:
+----
+{}
+
+
+
+BinaryData
+====
+
+Events:  <none>
+
+
+Name:         sh.helm.release.v1.currency-conversion.v1
+Namespace:    currency-conversion
+Labels:       modifiedAt=1745617224
+              name=currency-conversion
+              owner=helm
+              status=deployed
+              version=1
+Annotations:  <none>
+
+Type:  helm.sh/release.v1
+
+Data
+====
+release:  2988 bytes
+
+
+Name:         sh.helm.release.v1.prometheus.v1
+Namespace:    currency-conversion
+Labels:       modifiedAt=1745618958
+              name=prometheus
+              owner=helm
+              status=deployed
+              version=1
+Annotations:  <none>
+
+Type:  helm.sh/release.v1
+
+Data
+====
+release:  57240 bytes
+
+
+Name:            pvc-905d1323-036b-4573-b4ef-04b54fc05f11
+Labels:          <none>
+Annotations:     hostPathProvisionerIdentity: abb76763-9c5d-46e2-9e01-62ce6097161f
+                 pv.kubernetes.io/provisioned-by: k8s.io/minikube-hostpath
+Finalizers:      [kubernetes.io/pv-protection]
+StorageClass:    standard
+Status:          Bound
+Claim:           currency-conversion/storage-prometheus-alertmanager-0
+Reclaim Policy:  Delete
+Access Modes:    RWO
+VolumeMode:      Filesystem
+Capacity:        2Gi
+Node Affinity:   <none>
+Message:         
+Source:
+    Type:          HostPath (bare host directory volume)
+    Path:          /tmp/hostpath-provisioner/currency-conversion/storage-prometheus-alertmanager-0
+    HostPathType:  
+Events:            <none>
+
+
+Name:            pvc-f6502b82-0b47-4311-83bf-988f1fd95068
+Labels:          <none>
+Annotations:     hostPathProvisionerIdentity: abb76763-9c5d-46e2-9e01-62ce6097161f
+                 pv.kubernetes.io/provisioned-by: k8s.io/minikube-hostpath
+Finalizers:      [kubernetes.io/pv-protection]
+StorageClass:    standard
+Status:          Bound
+Claim:           currency-conversion/prometheus-server
+Reclaim Policy:  Delete
+Access Modes:    RWO
+VolumeMode:      Filesystem
+Capacity:        8Gi
+Node Affinity:   <none>
+Message:         
+Source:
+    Type:          HostPath (bare host directory volume)
+    Path:          /tmp/hostpath-provisioner/currency-conversion/prometheus-server
+    HostPathType:  
+Events:            <none>
+
+
+Name:          prometheus-server
+Namespace:     currency-conversion
+StorageClass:  standard
+Status:        Bound
+Volume:        pvc-f6502b82-0b47-4311-83bf-988f1fd95068
+Labels:        app.kubernetes.io/component=server
+               app.kubernetes.io/instance=prometheus
+               app.kubernetes.io/managed-by=Helm
+               app.kubernetes.io/name=prometheus
+               app.kubernetes.io/part-of=prometheus
+               app.kubernetes.io/version=v3.3.0
+               helm.sh/chart=prometheus-27.11.0
+Annotations:   meta.helm.sh/release-name: prometheus
+               meta.helm.sh/release-namespace: currency-conversion
+               pv.kubernetes.io/bind-completed: yes
+               pv.kubernetes.io/bound-by-controller: yes
+               volume.beta.kubernetes.io/storage-provisioner: k8s.io/minikube-hostpath
+               volume.kubernetes.io/storage-provisioner: k8s.io/minikube-hostpath
+Finalizers:    [kubernetes.io/pvc-protection]
+Capacity:      8Gi
+Access Modes:  RWO
+VolumeMode:    Filesystem
+Used By:       prometheus-server-564448f5dc-5tp9r
+Events:
+  Type    Reason                 Age   From                                                                    Message
+  ----    ------                 ----  ----                                                                    -------
+  Normal  Provisioning           29m   k8s.io/minikube-hostpath_minikube_a73fb806-10ab-4789-b4e8-0bac8a24dd1a  External provisioner is provisioning volume for claim "currency-conversion/prometheus-server"
+  Normal  ExternalProvisioning   29m   persistentvolume-controller                                             Waiting for a volume to be created either by the external provisioner 'k8s.io/minikube-hostpath' or manually by the system administrator. If volume creation is delayed, please verify that the provisioner is running and correctly registered.
+  Normal  ProvisioningSucceeded  29m   k8s.io/minikube-hostpath_minikube_a73fb806-10ab-4789-b4e8-0bac8a24dd1a  Successfully provisioned volume pvc-f6502b82-0b47-4311-83bf-988f1fd95068
+
+
+Name:          storage-prometheus-alertmanager-0
+Namespace:     currency-conversion
+StorageClass:  standard
+Status:        Bound
+Volume:        pvc-905d1323-036b-4573-b4ef-04b54fc05f11
+Labels:        app.kubernetes.io/instance=prometheus
+               app.kubernetes.io/name=alertmanager
+Annotations:   pv.kubernetes.io/bind-completed: yes
+               pv.kubernetes.io/bound-by-controller: yes
+               volume.beta.kubernetes.io/storage-provisioner: k8s.io/minikube-hostpath
+               volume.kubernetes.io/storage-provisioner: k8s.io/minikube-hostpath
+Finalizers:    [kubernetes.io/pvc-protection]
+Capacity:      2Gi
+Access Modes:  RWO
+VolumeMode:    Filesystem
+Used By:       prometheus-alertmanager-0
+Events:        <none>
+
+
+Name:             prometheus-server
+Labels:           app.kubernetes.io/component=server
+                  app.kubernetes.io/instance=prometheus
+                  app.kubernetes.io/managed-by=Helm
+                  app.kubernetes.io/name=prometheus
+                  app.kubernetes.io/part-of=prometheus
+                  app.kubernetes.io/version=v3.3.0
+                  helm.sh/chart=prometheus-27.11.0
+Namespace:        currency-conversion
+Address:          192.168.49.2
+Ingress Class:    nginx
+Default backend:  <default>
+Rules:
+  Host        Path  Backends
+  ----        ----  --------
+  localhost   
+              /   prometheus-server:80 (10.244.0.123:9090)
+Annotations:  meta.helm.sh/release-name: prometheus
+              meta.helm.sh/release-namespace: currency-conversion
+              nginx.ingress.kubernetes.io/ssl-redirect: false
+Events:
+  Type    Reason  Age                From                      Message
+  ----    ------  ----               ----                      -------
+  Normal  Sync    28m (x2 over 29m)  nginx-ingress-controller  Scheduled for sync
+
+
+### CONVERSION_RATE METRIC ###
+
+{"status":"success","data":{"resultType":"vector","result":[]}}
+
+### RANDO METRIC ###
+
+{"status":"success","data":{"resultType":"vector","result":[{"metric":{"__name__":"node_boot_time_seconds","app_kubernetes_io_component":"metrics","app_kubernetes_io_instance":"prometheus","app_kubernetes_io_managed_by":"Helm","app_kubernetes_io_name":"prometheus-node-exporter","app_kubernetes_io_part_of":"prometheus-node-exporter","app_kubernetes_io_version":"1.9.1","helm_sh_chart":"prometheus-node-exporter-4.45.2","instance":"192.168.49.2:9100","job":"kubernetes-service-endpoints","namespace":"currency-conversion","node":"minikube","service":"prometheus-prometheus-node-exporter"},"value":[1745620700.051,"1745598622"]}]}}
+
+### CURL GET ENDPOINT WITH NOTHING ###
+
+{"detail":"Method Not Allowed"}
+
+### CURL DATE ENDPOINT WITH DATE IN 2023 ###
+
+[{"currency":"AED","rate":3.673025},{"currency":"AFN","rate":87.499985},{"currency":"ALL","rate":97.875},{"currency":"AMD","rate":386.06},{"currency":"ANG","rate":1.802442},{"currency":"AOA","rate":825.5},{"currency":"ARS","rate":256.501673},{"currency":"AUD","rate":1.50085},{"currency":"AWG","rate":1.8025},{"currency":"AZN","rate":1.705399},{"currency":"BAM","rate":1.798826},{"currency":"BBD","rate":2},{"currency":"BDT","rate":108.186047},{"currency":"BGN","rate":1.792555},{"currency":"BHD","rate":0.376619},{"currency":"BIF","rate":2842},{"currency":"BMD","rate":1},{"currency":"BND","rate":1.357982},{"currency":"BOB","rate":6.91085},{"currency":"BRL","rate":4.7898},{"currency":"BSD","rate":1},{"currency":"BTC","rate":3.269288e-05},{"currency":"BTN","rate":82.019812},{"currency":"BWP","rate":13.490483},{"currency":"BYN","rate":2.524303},{"currency":"BZD","rate":2.01583},{"currency":"CAD","rate":1.32483},{"currency":"CDF","rate":2410},{"currency":"CHF","rate":0.894739},{"currency":"CLF","rate":0.029046},{"currency":"CLP","rate":801.47},{"currency":"CNH","rate":7.26389},{"currency":"CNY","rate":7.2537},{"currency":"COP","rate":4155.743644},{"currency":"CRC","rate":542.91638},{"currency":"CUC","rate":1},{"currency":"CUP","rate":25.75},{"currency":"CVE","rate":101.375},{"currency":"CZK","rate":21.7756},{"currency":"DJF","rate":177.827972},{"currency":"DKK","rate":6.82445},{"currency":"DOP","rate":55.35},{"currency":"DZD","rate":135.809026},{"currency":"EGP","rate":30.8818},{"currency":"ERN","rate":15},{"currency":"ETB","rate":54.6},{"currency":"EUR","rate":0.91605},{"currency":"FJD","rate":2.2277},{"currency":"FKP","rate":0.786999},{"currency":"GBP","rate":0.786999},{"currency":"GEL","rate":2.61},{"currency":"GGP","rate":0.786999},{"currency":"GHS","rate":11.45},{"currency":"GIP","rate":0.786999},{"currency":"GMD","rate":59.55},{"currency":"GNF","rate":8650},{"currency":"GTQ","rate":7.846118},{"currency":"GYD","rate":211.51803},{"currency":"HKD","rate":7.83665},{"currency":"HNL","rate":24.720001},{"currency":"HRK","rate":6.90538},{"currency":"HTG","rate":138.510582},{"currency":"HUF","rate":341.7},{"currency":"IDR","rate":15040.3},{"currency":"ILS","rate":3.70936},{"currency":"IMP","rate":0.786999},{"currency":"INR","rate":82.096248},{"currency":"IQD","rate":1310},{"currency":"IRR","rate":42250},{"currency":"ISK","rate":136.27},{"currency":"JEP","rate":0.786999},{"currency":"JMD","rate":154.211887},{"currency":"JOD","rate":0.7095},{"currency":"JPY","rate":144.33492787},{"currency":"KES","rate":140.6},{"currency":"KGS","rate":87.2015},{"currency":"KHR","rate":4132},{"currency":"KMF","rate":451.225174},{"currency":"KPW","rate":900},{"currency":"KRW","rate":1316.300773},{"currency":"KWD","rate":0.30748},{"currency":"KYD","rate":0.833433},{"currency":"KZT","rate":451.555688},{"currency":"LAK","rate":18755},{"currency":"LBP","rate":15014.44299},{"currency":"LKR","rate":308.034007},{"currency":"LRD","rate":180.100023},{"currency":"LSL","rate":18.83},{"currency":"LYD","rate":4.81},{"currency":"MAD","rate":9.897},{"currency":"MDL","rate":18.300017},{"currency":"MGA","rate":4530},{"currency":"MKD","rate":56.686876},{"currency":"MMK","rate":2100.12702},{"currency":"MNT","rate":3519},{"currency":"MOP","rate":8.072334},{"currency":"MRU","rate":34.55},{"currency":"MUR","rate":45.498238},{"currency":"MVR","rate":15.31},{"currency":"MWK","rate":1051.5},{"currency":"MXN","rate":17.1243},{"currency":"MYR","rate":4.6675},{"currency":"MZN","rate":63.875002},{"currency":"NAD","rate":18.78},{"currency":"NGN","rate":760.27},{"currency":"NIO","rate":36.575},{"currency":"NOK","rate":10.7406},{"currency":"NPR","rate":131.231486},{"currency":"NZD","rate":1.629184},{"currency":"OMR","rate":0.384986},{"currency":"PAB","rate":1},{"currency":"PEN","rate":3.6245},{"currency":"PGK","rate":3.52},{"currency":"PHP","rate":55.273999},{"currency":"PKR","rate":286.5},{"currency":"PLN","rate":4.064076},{"currency":"PYG","rate":7266.355808},{"currency":"QAR","rate":3.641},{"currency":"RON","rate":4.545},{"currency":"RSD","rate":107.394412},{"currency":"RUB","rate":88.826007},{"currency":"RWF","rate":1165},{"currency":"SAR","rate":3.750807},{"currency":"SBD","rate":8.330766},{"currency":"SCR","rate":13.386735},{"currency":"SDG","rate":601.5},{"currency":"SEK","rate":10.7939},{"currency":"SGD","rate":1.3522},{"currency":"SHP","rate":0.786999},{"currency":"SLL","rate":17665},{"currency":"SOS","rate":568.5},{"currency":"SRD","rate":38.05},{"currency":"SSP","rate":130.26},{"currency":"STD","rate":22823.990504},{"currency":"STN","rate":22.825},{"currency":"SVC","rate":8.750898},{"currency":"SYP","rate":2512.53},{"currency":"SZL","rate":18.83},{"currency":"THB","rate":35.224974},{"currency":"TJS","rate":10.930879},{"currency":"TMT","rate":3.5},{"currency":"TND","rate":3.09875},{"currency":"TOP","rate":2.369},{"currency":"TRY","rate":26.0511},{"currency":"TTD","rate":6.782769},{"currency":"TWD","rate":31.1613},{"currency":"TZS","rate":2415},{"currency":"UAH","rate":36.93456},{"currency":"UGX","rate":3670.123433},{"currency":"USD","rate":1},{"currency":"UYU","rate":37.474034},{"currency":"UZS","rate":11535},{"currency":"VES","rate":27.81981},{"currency":"VND","rate":23577.5},{"currency":"VUV","rate":118.979},{"currency":"WST","rate":2.72551},{"currency":"XAF","rate":600.88941},{"currency":"XAG","rate":0.04391552},{"currency":"XAU","rate":0.00052096},{"currency":"XCD","rate":2.70255},{"currency":"XDR","rate":0.750037},{"currency":"XOF","rate":600.88941},{"currency":"XPD","rate":0.00081828},{"currency":"XPF","rate":109.313842},{"currency":"XPT","rate":0.00110519},{"currency":"YER","rate":250.349961},{"currency":"ZAR","rate":18.820355},{"currency":"ZMW","rate":17.51367},{"currency":"ZWL","rate":322}]
+
+### CURL DATE ENDPOINT WITH DATE IN 2010 ###
+
+[{"currency":"AED","rate":3.67275},{"currency":"AFN","rate":48.550089},{"currency":"ALL","rate":96.435505},{"currency":"AMD","rate":377.894224},{"currency":"ANG","rate":1.791},{"currency":"AOA","rate":89.174867},{"currency":"ARS","rate":3.79928},{"currency":"AUD","rate":1.108609},{"currency":"AWG","rate":1.79025},{"currency":"AZN","rate":0.802601},{"currency":"BAM","rate":1.363},{"currency":"BBD","rate":2},{"currency":"BDT","rate":68.875969},{"currency":"BGN","rate":1.35765},{"currency":"BHD","rate":0.3765},{"currency":"BIF","rate":1136.687381},{"currency":"BMD","rate":1},{"currency":"BND","rate":1.400814},{"currency":"BOB","rate":7.020063},{"currency":"BRL","rate":1.741616},{"currency":"BSD","rate":1},{"currency":"BTN","rate":46.390556},{"currency":"BWP","rate":6.684572},{"currency":"BYR","rate":2862.268784},{"currency":"BZD","rate":1.9875},{"currency":"CAD","rate":1.048367},{"currency":"CDF","rate":890.00504},{"currency":"CHF","rate":1.0338},{"currency":"CLP","rate":507.427443},{"currency":"CNY","rate":6.828759},{"currency":"COP","rate":2044.171135},{"currency":"CRC","rate":554.506762},{"currency":"CVE","rate":76.538942},{"currency":"CZK","rate":18.390696},{"currency":"DJF","rate":177.721},{"currency":"DKK","rate":5.180377},{"currency":"DOP","rate":36.205077},{"currency":"DZD","rate":71.326541},{"currency":"EEK","rate":10.860498},{"currency":"EGP","rate":5.486778},{"currency":"ETB","rate":10.756432},{"currency":"EUR","rate":0.697253},{"currency":"FJD","rate":1.946322},{"currency":"FKP","rate":0.617865},{"currency":"GBP","rate":0.618224},{"currency":"GEL","rate":1.692423},{"currency":"GHS","rate":1.429497},{"currency":"GIP","rate":0.616479},{"currency":"GMD","rate":26.200169},{"currency":"GNF","rate":4995.970044},{"currency":"GTQ","rate":8.33355},{"currency":"GYD","rate":205.197677},{"currency":"HKD","rate":7.754729},{"currency":"HNL","rate":18.9225},{"currency":"HRK","rate":5.081717},{"currency":"HTG","rate":40.249761},{"currency":"HUF","rate":188.805457},{"currency":"IDR","rate":9402.221562},{"currency":"IEP","rate":0.672286},{"currency":"ILS","rate":3.785744},{"currency":"INR","rate":46.524322},{"currency":"IQD","rate":1151.992531},{"currency":"IRR","rate":9889.944329},{"currency":"ISK","rate":124.948712},{"currency":"JMD","rate":87.739453},{"currency":"JOD","rate":0.708375},{"currency":"JPY","rate":92.910732},{"currency":"KES","rate":75.840606},{"currency":"KGS","rate":44.066483},{"currency":"KHR","rate":4145.046765},{"currency":"KMF","rate":341.502152},{"currency":"KPW","rate":143.112069},{"currency":"KRW","rate":1160.640163},{"currency":"KWD","rate":0.287273},{"currency":"KZT","rate":148.473173},{"currency":"LAK","rate":8466.893794},{"currency":"LBP","rate":1501.743462},{"currency":"LKR","rate":114.369762},{"currency":"LRD","rate":68.999131},{"currency":"LSL","rate":7.384621},{"currency":"LTL","rate":2.396779},{"currency":"LVL","rate":0.487855},{"currency":"LYD","rate":1.235989},{"currency":"MAD","rate":7.877534},{"currency":"MDL","rate":12.234987},{"currency":"MGA","rate":1959.991649},{"currency":"MKD","rate":42.596418},{"currency":"MMK","rate":6.51},{"currency":"MNT","rate":1432.483743},{"currency":"MOP","rate":7.999735},{"currency":"MRO","rate":261.248805},{"currency":"MUR","rate":29.674809},{"currency":"MVR","rate":12.795},{"currency":"MWK","rate":143.274305},{"currency":"MXN","rate":13.108757},{"currency":"MYR","rate":3.422995},{"currency":"MZN","rate":30.584999},{"currency":"NAD","rate":7.356121},{"currency":"NGN","rate":149.698917},{"currency":"NIO","rate":19.307824},{"currency":"NOK","rate":5.771254},{"currency":"NPR","rate":71.724682},{"currency":"NZD","rate":1.377768},{"currency":"OMR","rate":0.384497},{"currency":"PAB","rate":1},{"currency":"PEN","rate":3.004574},{"currency":"PGK","rate":2.685241},{"currency":"PHP","rate":46.153271},{"currency":"PKR","rate":84.400874},{"currency":"PLN","rate":2.84916},{"currency":"PYG","rate":4692.47027},{"currency":"QAR","rate":3.64},{"currency":"RON","rate":2.950425},{"currency":"RSD","rate":66.612287},{"currency":"RUB","rate":30.002896},{"currency":"RWF","rate":569.996697},{"currency":"SAR","rate":3.750375},{"currency":"SBD","rate":7.84671},{"currency":"SCR","rate":10.979979},{"currency":"SDG","rate":2.234396},{"currency":"SEK","rate":7.138645},{"currency":"SGD","rate":1.403339},{"currency":"SHP","rate":0.617865},{"currency":"SLL","rate":3849.993913},{"currency":"SOS","rate":1499.996522},{"currency":"SRD","rate":2.71499},{"currency":"STD","rate":16129.897404},{"currency":"SVC","rate":8.748798},{"currency":"SYP","rate":45.549845},{"currency":"SZL","rate":7.395295},{"currency":"THB","rate":33.294911},{"currency":"TJS","rate":4.370486},{"currency":"TND","rate":1.318996},{"currency":"TOP","rate":1.90848},{"currency":"TRY","rate":1.502598},{"currency":"TTD","rate":6.31525},{"currency":"TWD","rate":31.999965},{"currency":"TZS","rate":1338.495773},{"currency":"UAH","rate":8.005007},{"currency":"UGX","rate":1904.998348},{"currency":"USD","rate":1},{"currency":"UYU","rate":19.549958},{"currency":"UZS","rate":1508.614466},{"currency":"VEF","rate":2.15},{"currency":"VND","rate":18469.946758},{"currency":"VUV","rate":97.049984},{"currency":"WST","rate":2.587412},{"currency":"XAF","rate":480.717991},{"currency":"XCD","rate":2.605025},{"currency":"XDR","rate":0.637967},{"currency":"XOF","rate":454.917986},{"currency":"XPF","rate":83.342361},{"currency":"YER","rate":204.499713},{"currency":"ZAR","rate":7.393195},{"currency":"ZMK","rate":4689.991132},{"currency":"ZWD","rate":15180.699616}]
+
+### CURL POST ENDPOINT 1 ###
+
+{"converted_amount":1.9683365024781234,"exchange_rate":0.024604206280976544}
+
+### CURL POST ENDPOINT 2 ###
+
+{"converted_amount":14.582076768436803,"exchange_rate":0.18227595960546003}
+
+### CURL POST ENDPOINT 3 ###
+
+{"converted_amount":1.37154675,"exchange_rate":5.486187}
